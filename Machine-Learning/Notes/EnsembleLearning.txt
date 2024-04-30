@@ -1,0 +1,23 @@
+Ensemble Learning:
+ - Random Forests - Decision Trees using subsamples, set of attributes - voted on final result.
+    - Bagging (Bootstrap aggregating) to impliment Ensemble learning
+
+
+ Bucket:
+    - Trains several different models using training data, picks the besat one that works with the test data.
+
+ Stacking:   
+    - Multiple Models ran on training data, combine results.
+
+Advanced Ensemble Learning:
+
+1. Bayes Optimal Classifier:
+    - Theoretically the best - But Impractical
+
+2. Bayesian Parameter Averaging:
+    - Attempts to make BOC(1) Practical, but is misunderstood, succeptible to overfitting, outperformed by bagging.
+
+3. Bayesian Model Combination
+    - Tries to Address all of the above problems. - Like stacking.
+
+    

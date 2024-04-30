@@ -1,0 +1,11 @@
+Support Vector Machines:
+    - Works well for classifying high dimensional data (lots of features)
+    - Finds higher dimensional support vectors across which to divide the data
+
+High Dimensions, Hyper Planes, Etc:
+    - SVM's Employ advanced mathematical trickery to cluster data, can handle data sets with lots of features.
+    - Fairly Expensive, the 'Kernel Trick" is the only thing that makes it possible.
+    - Supervised Learning.
+
+Support Vector Classification:
+    - Use Different Kernels with SVC, some will work better than others in a given data set. 

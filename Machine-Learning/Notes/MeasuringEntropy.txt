@@ -1,0 +1,6 @@
+Entropy:
+    Measure of data sets disorder, how same or different a data set is 
+
+    Classify a set into N classes, 
+        - If Entropy is 0, all of the classes in the set are the same
+        - the Entropy is high if theyre all different 

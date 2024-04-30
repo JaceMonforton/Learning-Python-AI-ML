@@ -1,0 +1,22 @@
+K-Clustering
+Attempts to split data into K groups that are closest to K centroids.
+
+Unsupervised Learning - uses only the position of each data position- can uncover interesting rouping of people / things / behavious
+
+Ex: Where do millionaires live? 
+Ex: What genre of music / movie?
+
+K-Means Clustering:
+- 1. Pick 'K'centroids (k-means)
+- 2. Assiogn each data point ot rthe centroid its closest to
+- 3. Recompute the centroids based on the average position of each centroid's points
+- 4. Iterate until points stop changing assignments to centroids
+
+1. Choosing K:
+    - Increase K values until you stop getting large reductions in squared error
+2. Avoid Local Minima:
+    - The random choice of initial centroids can yield different results 
+    - Run it a few times to ensure your initial results arent wacky.
+3. Labeling Clusters:
+    - K-means does not attemp to assign any meaning to the clusters you find
+    - we must dig up data and determine it.

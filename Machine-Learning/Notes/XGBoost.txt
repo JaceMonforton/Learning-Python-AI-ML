@@ -1,0 +1,15 @@
+XGBoost:
+    - eXtreme Gradient Boosted Trees.
+        - Boosted is an Ensemble Method.
+            - Each Tree boosts attributes that led to mis-classification of a previous tree
+
+ - Features:
+    - Regularized Boosting (Prevents Overfitting)
+    - Can Handle missing values automatically 
+    - Parallel Processing
+    - Can Cross Validate at each iteration:
+        - Enables early stopping, finding optimal number of iterations.
+    - Incremental training
+    - Can plug in your own optimization objectives.
+    - Tree Pruning:
+        - Generally results in deeper, but optimized trees.

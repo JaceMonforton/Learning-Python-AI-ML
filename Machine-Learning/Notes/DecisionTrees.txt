@@ -1,0 +1,17 @@
+Decision Trees:
+    Flowchart of how to make a decision - Another form of supervised learning.
+
+    Example:
+        Build a system to filter out resumes based on historical hiring data
+
+        1. You have databased of some important attributes of job candidates, and you know whyuch ones were hireed and which ones werent.
+        2. Train decision tree on that data
+
+            - Greedy Algorithm (Dijktstra or Prim's/Krushkal's )
+                - Picks option that reduces entropy the most at that stage.
+
+    Prone to Overfitting , construct sevral alternate decision trees and let them "vote" on the final classification
+        - Randomly resample data for each tree: "Bootstrap Aggregating or bagging"
+        - Randomize a subset of attributes each step is allowed to chose from. 
+    Ensemble learning.
+

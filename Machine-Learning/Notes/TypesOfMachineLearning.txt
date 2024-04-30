@@ -1,0 +1,37 @@
+UnSupervised:
+    - Not giving answers to learn from, giving data and it tries to make sense of it given no info
+    - ex: given objects: square, circle, cube, rectangle, etc, algorithm clusters objects into things that are similar, ex: color, shape, # of sides, etc
+    - no set of answers to learn from, gathers own answers given data
+    - Latent vairable:
+        - You dont know what youre looking for
+
+    Ex: Clustering users on a dating website based on their info and preferences
+    Ex: Clustering of movies based on properties
+    Ex: Analyze the Text of a product description to find the terms that carry the most meaning for a ceetain category
+
+Supervised Learning:
+    - Have set of answers that model can learn from
+    - given training data that the model learns from it can infer relationships between feastures and categories we want and apply that to unseen, new values 
+    -training model using actual answers.
+
+    Ex: Train a model for predicting car prices based on car attributes using historical sales data. Model can then predict the optimal price for the new car that hasnt been sold before.
+
+Evaluating Supervised Learning:
+    - Train/Test
+    - Build Model using subset of data for training data and evaluate model that comes out to see if it can successfully predict for the testing data.
+    - Portion of data for testing that was generated using the training set. - concrete way to test model 
+    - Measure using r-squared (accuracy) to test best model., tune paramters, 
+
+Train / Test In Practice:
+- Its Not perfect
+    - Need to ensure both sets are large enough to contain representatives of all the variation and outliers in the data you care about.
+    - The Data sets must be selected randomly
+    - Great way to guard against overfitting
+    - Samples sizes too small
+
+K-Fold Cross Validation:
+    - Train/Test Multiple times.
+    - Multiple randomly assigned segments (k-segments)
+        - reserve one as test data
+    -Train on each of the remaining segments and measure perfomance against the test set
+    -Take average r-squared scores from each results.

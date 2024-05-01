@@ -14,21 +14,17 @@ movieRatings = ratings.pivot_table(index=['user_id'], columns=['title'], values=
 
 # Extract ratings for "Star Wars (1977)"
 StarWarsRating = movieRatings['Star Wars (1977)']
-
 similarMovies = movieRatings.corrwith(StarWarsRating)
-
 # Drop NaN values
 similarMovies = similarMovies.dropna()
 
 # Sort by similarity
 similarMovies = similarMovies.sort_values(ascending=False)
-
 # Aggregate movie statistics
 movieStats = ratings.groupby('title').agg(size=('rating', np.size), mean=('rating', 'mean'))
 
 # Filter popular movies (rated by at least 100 users)
 popularMovies = movieStats['size'] >= 100
-
 
 # Sort by the mean rating
 movieStats = movieStats[popularMovies].sort_values(by='mean', ascending=False)[:15]
@@ -39,5 +35,5 @@ movieStats.reset_index(inplace=True)
 # Join movie stats with similarity scores
 df = pd.merge(movieStats, pd.DataFrame(similarMovies, columns=['similarity']), on='title')
 
-df = df.sort_values(['similarity'], ascending=False)[:15]
+df = df.sort_values(['similarity'], ascending=False)
 print(df.head())

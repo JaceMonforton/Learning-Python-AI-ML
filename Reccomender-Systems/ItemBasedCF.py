@@ -24,7 +24,7 @@ for i in range(0, len(myRatings.index)):
     print('Adding Simulation for ' + myRatings.index[i] + '...')
     #Retrieve Similar movies to the ones i rated
     sims = corrMatrix[myRatings.index[i]].dropna() #Drops NaN Values.
-    #Scale the similarity by how well io rated it 
+    #Scale the similarity by how well i rated it 
     sims = sims.map(lambda x: x * myRatings.iloc[i]) #iloc for series 
     #Add score to the list of similarity candidates
     SimulationUser = SimulationUser._append(sims)

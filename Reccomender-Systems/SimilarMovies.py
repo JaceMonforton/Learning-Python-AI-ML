@@ -1,25 +1,39 @@
 import pandas as pd 
 
-r_cols = ['user_id', 'movie_id', 'rating']
-ratings = pd.read_csv('C:\\MLCourse\\ml-100k\\u.data', sep='\t', names=r_cols, usecols=range(3))
+# Read the data
+ratings = pd.read_csv('C:\\MLCourse\\ml-100k\\u.data', sep='\t', names=['user_id', 'movie_id', 'rating'])
 
-m_cols = ['movie_id', 'title']
-movies = pd.read_csv('C:\\MLCourse\\ml-100k\\u.item', sep='|', names=m_cols, usecols=range(2), encoding='latin1')
+movies = pd.read_csv('C:\\MLCourse\\ml-100k\\u.item', sep='|', names=['movie_id', 'title'], usecols=range(2), encoding='latin1')
 
+# Merge dataframes
 ratings = pd.merge(movies, ratings)
 
-# print(ratings.head())
+# Create a pivot table of movie ratings
+movieRatings = ratings.pivot_table(index='user_id', columns='title', values='rating')
 
-movieRatings = ratings.pivot_table(index=['user_id'], columns=['title'], values='rating')
-# print(movieRatings.head())
-
+# Extract ratings for "Star Wars (1977)"
 StarWarsRating = movieRatings['Star Wars (1977)']
-# print(StarWarsRating.head())
 
-similarMovies = movieRatings.corrwith(StarWarsRating) #computes correlation with every other column in df with the starwars column tosee similar movies (-1,1)
-similarMovies = similarMovies.dropna() #drop NaN values
+# Compute correlations with other movies
+similarMovies = movieRatings.corrwith(StarWarsRating)
 
-similarMovies = similarMovies.sort_values(ascending=False) # Sort the Series in descending order
+# Drop NaN values
+similarMovies = similarMovies.dropna()
 
-df = pd.DataFrame(similarMovies)
-print(df.head(10)) 
+# Sort by similarity
+similarMovies = similarMovies.sort_values(ascending=False)
+
+# Aggregate movie statistics
+movieStats = ratings.groupby('title').agg(size=('rating', 'size'), mean=('rating', 'mean'))
+
+# Filter popular movies (rated by at least 100 users)
+popularMovies = movieStats['size'] >= 100
+movieStats = movieStats[popularMovies].sort_values(by='mean', ascending=False)[:15]
+
+# Reset index after filtering
+movieStats.reset_index(inplace=True)
+
+# Join movie stats with similarity scores
+df = movieStats.join(pd.DataFrame(similarMovies, columns=['similarity']), on='title')
+
+print(df.head())

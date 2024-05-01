@@ -1,42 +1,54 @@
 import pandas as pd
 
-
+# Load the ratings data
 r_cols = ['user_id', 'movie_id', 'rating']
 ratings = pd.read_csv('C:\\MLCourse\\ml-100k\\u.data', sep='\t', names=r_cols, usecols=range(3))
+
+# Load the movies data
 m_cols = ['movie_id', 'title']
 movies = pd.read_csv('C:\\MLCourse\\ml-100k\\u.item', sep='|', names=m_cols, usecols=range(2), encoding='latin1')
 
+# Merge movies and ratings data
 ratings = pd.merge(movies, ratings)
-# print(ratings.head())
 
-
+# Pivot table to get user ratings
 userRatings = ratings.pivot_table(index=['user_id'], columns=['title'], values='rating')
-# print(userRatings.head())
 
-corrMatrix = userRatings.corr(method='pearson', min_periods=100) #correlation between any 2 movies. given at least min_periods people rating 
-# print(corrMatrix.head())
+# Remove outliers using IQR method
+def remove_outliers_iqr(data):
+    Q1 = data.quantile(0.25)
+    Q3 = data.quantile(0.75)
+    IQR = Q3 - Q1
+    lower_bound = Q1 - 1.5 * IQR
+    upper_bound = Q3 + 1.5 * IQR
+    return data[((data >= lower_bound) & (data <= upper_bound))]
 
-myRatings = userRatings.loc[0].dropna()
-# print(myRatings) 
+userRatings_no_outliers = userRatings.apply(remove_outliers_iqr, axis=0)
 
-SimulationUser = pd.Series(0) #initialize @ empty series.
+# Build correlation matrix
+corrMatrix = userRatings_no_outliers.corr(method='pearson', min_periods=100)
+
+# Get user ratings
+myRatings = userRatings_no_outliers.loc[0].dropna()
+
+# Initialize SimulationUser
+simulationUser = pd.Series()
+
+# Generate recommendation
 for i in range(0, len(myRatings.index)):
     print('Adding Simulation for ' + myRatings.index[i] + '...')
-    #Retrieve Similar movies to the ones i rated
-    sims = corrMatrix[myRatings.index[i]].dropna() #Drops NaN Values.
-    #Scale the similarity by how well i rated it 
-    sims = sims.map(lambda x: x * myRatings.iloc[i]) #iloc for series 
-    #Add score to the list of similarity candidates
-    SimulationUser = SimulationUser._append(sims)
-
-
-
+    # Retrieve similar movies to the ones I rated
+    sims = corrMatrix[myRatings.index[i]].dropna()
+    # Scale the similarity by how well I rated it
+    sims = sims.map(lambda x: x * myRatings.iloc[i])
+    # Add score to the list of similarity candidates
+    simulationUser = simulationUser._append(sims)
 
 print("\nSorting...")
-SimulationUser = SimulationUser.groupby(SimulationUser.index).sum()
-SimulationUser.sort_values(inplace=True, ascending=False)
-print(SimulationUser.head(10))
+simulationUser = simulationUser.groupby(simulationUser.index).sum()
+simulationUser.sort_values(inplace=True, ascending=False)
+print(simulationUser.head(10))
 
 print("\nFiltering....")
-filteredSim = SimulationUser.drop(myRatings.index)
+filteredSim = simulationUser.drop(myRatings.index)
 print(filteredSim.head(10))

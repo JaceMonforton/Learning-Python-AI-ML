@@ -1,0 +1,18 @@
+
+    Reduce high dimensional info into lower dimensional info (compact and preserve variance)
+    compression / feature extraction
+        Ex: K-Means Clustering
+            - Reduces data into K dimensions.
+
+    PCA: Principal Component Analysis
+        - Finds Eigenvectors in the higher dimensional data while preserving the variance
+        - the data gets projected onto these hyper planes which represent the lower dimensions you want to represent.
+            -Popular Implimentation:
+                - Singular Value Decomposition (SVD)
+        - Useful for image compression and facial recognition
+
+Example: Visualizing 4-D Iris Flower data
+    - Has Petals and Sepals
+    - Know Length and width of the petals and sepals for many iris'
+        - Four dimensions
+    - Also Know the subspecies classification of each flower.

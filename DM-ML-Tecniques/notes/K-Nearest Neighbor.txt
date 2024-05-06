@@ -1,0 +1,6 @@
+KNN:
+    Used to classify new data points based on distance to known data
+    find the K nearest neighbors based on your distance metric.
+    Let them all vote on classification
+    Supervised Learning
+

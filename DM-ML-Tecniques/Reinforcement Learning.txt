@@ -1,0 +1,32 @@
+RL:
+    - Some sort of agent that explores
+    - as it goes, it learns the value of different state changesa in different conditions 
+    - those values inform subsequent behavious of the agent
+        Ex: 
+        - Pacman, Cat & Mouse Game
+    - Yields fast online performance once the space has been explored.
+
+Q Learning:
+    - Set of states 's'
+    - Set op possible actions in those states 'a'
+    - Value of each state-action pair 'Q'
+
+    - Starts with Q = 0
+    - Explores the space
+        - As bad things happen after a given state/action, Reduce Q.
+        - As good thiings / rewards happen afer a given state/action, Increace Q
+
+    * You can "Look ahead" more than one step by using a discount factor:
+        -  Q(s,a) = discount * (reward(s,a) + max(Q(s')) - Q(s,a))
+            - s = prev state, s' = current state
+
+    - Exploration Problem:
+        - How do we explore all of the possible states?
+            * Simple Approach:
+                - Always choose the action for a given state with the highest Q, if a tie, randomize
+            * Better Way:
+                - Introduce epsilon term:
+                    - if random number < epsilon, dont follow the highest Q, but choose random
+                    - So Exploration never totally stops 
+                    - choose epsilon can be tricky
+

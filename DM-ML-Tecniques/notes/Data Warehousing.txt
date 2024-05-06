@@ -1,0 +1,20 @@
+What is Data Warehousing?
+    - Large Database that conatins info from many sources
+    - Queried via SQL or Tableau
+
+    ETL: Extract, Transform, Load:
+        - Raw data from Operational systems is periodically extracted,
+        - Data is Transformed into the schema needed by the Data Warehouse
+        - Data is loaded into the data Warehouse, already in the needed structure
+
+        - When dealing with Big Data, the Transform step can ben issue.
+
+    ELT: Extract, Load, Transform
+        - Things like hive let you host massive databases on a Hadoop cluster.
+        - The Scalibility of Hadoop lets you flip the loading process
+            Process:
+                - Extract Data as before
+                - Load it in as-is
+                - Use Hadoop to transform it in place.
+
+    
